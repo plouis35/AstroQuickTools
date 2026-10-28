@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Kivy: run on desktop",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "args": ["${workspaceFolder}/main.py"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Android: build debug APK",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/buildozer",
+      "args": ["android", "debug"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "PATH": "${workspaceFolder}/.venv/bin:${env:PATH}"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Android: install APK on connected phone",
+      "type": "shell",
+      "command": "\"${workspaceFolder}/.venv/bin/buildozer\" android debug && adb install -r bin/*.apk",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "PATH": "${workspaceFolder}/.venv/bin:${env:PATH}"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Android: clean build files",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/buildozer",
+      "args": ["android", "clean"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
