@@ -131,5 +131,10 @@ source.
   `clang-14: error: unable to execute command: Bus error`, ne cherche pas à
   installer `libm` : refais le build depuis une copie sur le système de
   fichiers Linux local, pas depuis `/media/psf`.
+- **`remote_debugging.c: error: implicit declaration of function 'pwritev'`**
+  : Python 3.14 nécessite Android API 24 au minimum pour cette fonction.
+  `android.minapi = 24` est configuré dans `buildozer.spec`; envoie ce
+  changement à GitHub pour relancer le build. Cela exclut uniquement les
+  appareils antérieurs à Android 7.0 (Nougat).
 - **Repartir d'une compilation propre** : exécute
   `buildozer android clean`, puis relance le build.

@@ -12,7 +12,8 @@ fullscreen = 0
 
 # Android builds use a 64-bit ARM APK compatible with most recent phones.
 android.api = 35
-android.minapi = 23
+# Python 3.14 uses pwritev, which Android exposes from API 24.
+android.minapi = 24
 android.ndk = 25b
 android.archs = arm64-v8a
 android.accept_sdk_license = True
