@@ -136,5 +136,9 @@ source.
   `android.minapi = 24` est configuré dans `buildozer.spec`; envoie ce
   changement à GitHub pour relancer le build. Cela exclut uniquement les
   appareils antérieurs à Android 7.0 (Nougat).
+- **Erreur pip SSL ou wheel Android non pris en charge** : la version
+  précédente de python-for-android utilisait ici un installateur incompatible
+  avec Python 3.14 et ses wheels Android. Le projet utilise maintenant la
+  branche corrigée `develop` ; envoie `buildozer.spec` à GitHub pour l'utiliser.
 - **Repartir d'une compilation propre** : exécute
   `buildozer android clean`, puis relance le build.

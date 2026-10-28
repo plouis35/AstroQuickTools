@@ -18,6 +18,9 @@ android.ndk = 25b
 android.archs = arm64-v8a
 android.accept_sdk_license = True
 
+# Python 3.14 Android wheels require the updated package installer.
+p4a.branch = develop
+
 [buildozer]
 log_level = 2
 warn_on_root = 1
