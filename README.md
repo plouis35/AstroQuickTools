@@ -74,6 +74,9 @@ tests, pas à une publication sur un magasin.
 Le workflow `.github/workflows/android.yml` compile automatiquement un APK
 à chaque `push` sur `main` ou `master`. Il peut aussi être lancé manuellement
 depuis l'onglet **Actions** du dépôt GitHub avec **Run workflow**.
+Le dépôt inclut une recette python-for-android locale pour `libthorvg`,
+nécessaire avec le NDK 25b, qui range `libomp.so` sous `lib64/clang`.
+Cette même recette est utilisée par le build local et par GitHub Actions.
 
 Pour le premier envoi de ce dossier vers GitHub :
 
@@ -126,11 +129,12 @@ source.
   dans un terminal et lis/valide les demandes affichées.
 - **Échec lié au disque partagé** : réalise le build depuis une copie dans le
   système de fichiers Linux local, comme indiqué à l'étape 1.
-- **`configure: error: Python requires C99 compatible libm`** : ce message
-  peut masquer un plantage du linker Android. Si `config.log` montre
-  `clang-14: error: unable to execute command: Bus error`, ne cherche pas à
-  installer `libm` : refais le build depuis une copie sur le système de
-  fichiers Linux local, pas depuis `/media/psf`.
+- **`clang: error: unable to execute command: Bus error`** : si le build est
+  lancé depuis `/media/psf`, le linker Android peut planter sur ce système de
+  fichiers partagé, y compris pendant la compilation de dépendances comme
+  libjpeg. Refais le build depuis une copie dans le système de fichiers Linux
+  local, pas depuis `/media/psf`. Le même plantage peut aussi faire échouer le
+  test `libm` de Python.
 - **`remote_debugging.c: error: implicit declaration of function 'pwritev'`**
   : Python 3.14 nécessite Android API 24 au minimum pour cette fonction.
   `android.minapi = 24` est configuré dans `buildozer.spec`; envoie ce
@@ -139,6 +143,9 @@ source.
 - **Erreur pip SSL ou wheel Android non pris en charge** : la version
   précédente de python-for-android utilisait ici un installateur incompatible
   avec Python 3.14 et ses wheels Android. Le projet utilise maintenant la
-  branche corrigée `develop` ; envoie `buildozer.spec` à GitHub pour l'utiliser.
+  branche corrigée `develop`.
+- **`libthorvg` échoue avec `IndexError` pendant la recherche de `libomp.so`**
+  : vérifie que la recette du dépôt `p4a-recipes/libthorvg` est présente et
+  que `p4a.local_recipes = p4a-recipes` figure dans `buildozer.spec`.
 - **Repartir d'une compilation propre** : exécute
   `buildozer android clean`, puis relance le build.

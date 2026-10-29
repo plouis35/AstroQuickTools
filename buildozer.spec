@@ -20,6 +20,7 @@ android.accept_sdk_license = True
 
 # Python 3.14 Android wheels require the updated package installer.
 p4a.branch = develop
+p4a.local_recipes = p4a-recipes
 
 [buildozer]
 log_level = 2

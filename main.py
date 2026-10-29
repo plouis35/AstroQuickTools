@@ -14,7 +14,7 @@ class HelloWorldApp(App):
         )
 
         self.message = Label(
-            text="Bonjour Android !",
+            text="Bonjour Android bis !",
             font_size="28sp",
         )
         button = Button(
